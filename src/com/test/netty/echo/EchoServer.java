@@ -40,4 +40,12 @@ public class EchoServer {
             bossGroup.shutdownGracefully();
         }
     }
+
+    public static void main(String[] args) {
+        try {
+            new EchoServer(8083).run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
