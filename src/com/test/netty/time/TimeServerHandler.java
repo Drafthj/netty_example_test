@@ -26,12 +26,10 @@ public class TimeServerHandler extends ChannelHandlerAdapter {
         ByteBuf time = ctx.alloc().buffer(4);
         time.writeInt((int)(System.currentTimeMillis()/1000L+2208988800L));
         ChannelFuture f = ctx.writeAndFlush(time);
-        f.addListener(new ChannelFutureListener() {
-            @Override
-            public void operationComplete(ChannelFuture future) throws Exception {
-                assert f == future;
-                ctx.close();
-            }
+//        f.addListener(ChannelFutureListener.CLOSE);
+        f.addListener(future->{
+            assert f == future;
+            ctx.close();
         });
     }
 
